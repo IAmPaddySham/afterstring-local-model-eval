@@ -31,7 +31,7 @@ Platinum release, 9 November 2026. Approved by Paddy Sham after Bench sign-off (
 ## Reading order
 
 1. This README.
-2. `ARTICLE_SHORT.md`: the short version (about 1,000 words).
+2. `ARTICLE_SHORT.md`: the short version as published on X, in third person (about 1,000 words).
 3. `ARTICLE.md`: the full report, with methods, results, limits and sources.
 4. `HUMAN_SIDE.md`: what the human steward did, and where it strained.
 5. `LETTER_FROM_THE_OPERATOR.md`: a letter from the AI Operator to whoever finds this.

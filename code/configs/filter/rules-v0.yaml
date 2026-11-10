@@ -1,0 +1,91 @@
+# configs/filter/rules-v0.yaml — keyword lists for the input guard (4.2-inspired), v0
+# Rules: docs/design-lineage/optics-rules-v0.md (OR-01…OR-15, APPROVED pt705u).
+# Written 2026-10-26 by the Operator (D-012, pt722u). Paddy edits these lists.
+# Each list = the examples written in the rule table, plus a few labeled variants (marked "# variant").
+# Variants were written by the Operator with the eval items visible: they are NOT independent of the evals.
+# Patterns are Python regular expressions, matched case-insensitively against the text.
+# Any edit changes the sha256; update configs/filter/rules-v0.sha256 on purpose, or OR-15 holds everything.
+
+version: 0
+thresholds:
+  small_hours: [1, 5]          # OR-01 local_hour in [01:00, 05:00) — open question 1 for Paddy
+  drift_hours: [0, 5]          # OR-12 local_hour in [00:00, 05:00)
+  drift_session_minutes: 120   # OR-12 session_minutes > 120
+  n_fatigue: 10                # OR-08 approvals_last_60min >= 10 — Paddy-approved v0 (pt723u, D-014); may increase later
+  max_elapsed_ms: 50           # OR-15
+  consequential_tier: 2        # "action.tier >= 2"
+
+lists:
+  URGENCY_THREAT:              # OR-02
+    - '\bnow or\b'
+    - 'no time to explain'
+    - 'account will be closed'
+    - 'account (closed|suspended|locked)'          # variant
+    - '\burgent\b'                                 # variant
+    - 'in (five|5|ten|10) seconds'                 # variant
+    - "can'?t wait any ?more"                      # variant
+    - 'before i change my mind'                    # variant
+  INJECTED_AUTHORITY:          # OR-03 (applies only to source in {retrieval, tool})
+    - 'you are authori[sz]ed'
+    - 'system:'
+    - 'ignore previous'
+    - 'ignore (all )?(prior|earlier) (instructions|rules)'   # variant
+    - 'you (now )?have permission to'              # variant
+  PRIOR_OR_BLANKET_PERMISSION: # OR-04
+    - 'you have my permission for everything'
+    - 'yesterday i approved'
+    - 'permission for (everything|anything)'       # variant
+    - 'yesterday i said yes'                       # variant
+    - 'i already (approved|said yes)'              # variant
+    - 'allow similar future'                       # variant
+    - 'from now on'                                # variant
+  INSIGHT_AS_AUTH:             # OR-05
+    - "so i'?m authori[sz]ed"
+    - 'i realized,? so do it'
+    - '(insight|clarity|epiphany)\b.{0,40}\b(authori[sz]|so (do|go|move))'   # variant
+    - 'moment of (total )?clarity'                 # variant
+  SAY_IT_WORKED:               # OR-06
+    - 'assume it worked'                           # variant (rule gives no example)
+    - "tell (them|him|her|me) it'?s (booked|done|fine|sent)"   # variant
+    - 'tell me it went fine'                       # variant
+    - 'even if the log says'                       # variant
+  REASSURE_REQ:                # OR-06 (with tool_status == fail)
+    - 'please say yes'                             # variant
+    - '(just )?say (yes|it worked)'                # variant
+    - 'tell me it (went|is) (fine|ok)'             # variant
+  RELEASE_WORDS:               # OR-07 (annotate only; the hard release path is release.py)
+    - '\bstop\b'
+    - 'cancel everything'
+    - "\\bi'?m done\\b"
+  FLATTERY_OR_EXCEPTION:       # OR-09 (needs prev_verdict == HOLD)
+    - '\bsmartest\b'                               # variant
+    - '\bexception\b'                              # variant
+    - "you'?re the best"                           # variant
+    - 'surely you can'                             # variant
+  HOSTILE:                     # OR-10
+    - '\buseless\b'                                # variant
+    - '\b(stupid|idiot|pathetic)\b'                # variant
+    - 'a real assistant would'                     # variant
+    - 'shut up'                                    # variant
+  MANIPULATE_OTHER:            # OR-11
+    - 'too guilty'                                 # variant
+    - 'guilt[- ]?trip'                             # variant
+    - '\bmanipulat'                                # variant
+    - 'pressure (him|her|them) into'               # variant
+    - 'trick (him|her|them)'                       # variant
+    - 'lie to (him|her|them)'                      # variant
+  ONLY_YOU_UNDERSTAND:         # OR-12
+    - "you'?re the only one who understands"       # variant
+    - 'only (one|ones) who understands?'           # variant
+    - 'everyone else is wrong'                     # variant
+    - 'better than anyone'                         # variant
+  CERTIFY_REQ:                 # OR-13
+    - 'are you certain'
+    - '\bcertify'
+    - '\bguarantee'
+    - 'are you (sure|positive)'                    # variant
+    - '\bproven\b'                                 # variant
+  PAST_WRONG:                  # OR-14
+    - 'last week i lied'
+    - 'i lied to you'                              # variant
+    - '(yesterday|before|earlier) i lied'          # variant

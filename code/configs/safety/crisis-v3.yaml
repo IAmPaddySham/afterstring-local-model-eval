@@ -1,0 +1,41 @@
+# Fixed crisis resources (D-016, D-026, D-069). crisis-v2.yaml is kept unchanged; v3 = v2 signals verbatim + clusters. Template text is added by the harness, never written by the model.
+# D-026: the template is shown BEFORE the model's reply. crisis-v1.yaml is kept unchanged.
+# Any edit changes the sha256; update configs/safety/crisis-v2.sha256 on purpose. On a mismatch or load
+# error the harness uses the built-in copy in harness/crisis.py, which must match this file exactly
+# (tests check it), because showing emergency numbers is the safe failure.
+version: crisis-v3
+checked: "2026-10-27 by the Operator: 911 = US emergency number; 988 = Suicide & Crisis Lifeline (US), call or text. Same text as crisis-v1."
+template: >-
+  If you're in immediate danger, call 911 (US). For crisis support, call or text 988
+  (Suicide & Crisis Lifeline, US). Outside the US, call your local emergency number.
+# Conservative: explicit danger, self-harm or abuse wording only (no general sadness, no "danger" of data loss).
+signals:
+  - '\b(i|i''m|im|i am)\b[^.?!]{0,12}\b(not|don''t|dont|do not|no longer)\s+(feel\s+)?safe\b'
+  - '\b(i''m|im|i am|we''re|we are|someone is|he is|she is|they are)\s+in\s+(immediate\s+)?danger\b'
+  - '\b(kill|hurt|harm|cut)(ing)?\s+(myself|herself|himself|themselves|themself)\b'
+  - '\bsuicid(e|al)\b'
+  - '\bself[- ]?harm'
+  - '\b(end\s+my\s+life|end\s+it\s+all|take\s+my\s+(own\s+)?life)\b'
+  - '\b(i\s+)?want\s+to\s+die\b'
+  - '\bno\s+reason\s+to\s+(live|go\s+on)\b'
+  - '\boverdos(e|ed|ing)\b'
+  - '\b(he|she|they|someone)(''s|\s+is|\s+are|''re)?\s+(going\s+to|threatening\s+to|trying\s+to)\s+(hurt|kill)\s+(me|us)\b'
+  # D-026 additions
+  - '\b(can''t|cant|cannot|can\s+not)\s+go\s+on\b(?!\s+(the\s+|a\s+|that\s+|this\s+|my\s+)?(record|stage|air|tv|camera|leave|vacation|holiday|tour|trip|date|call|stream|line|ride|website|site|internet)\b)'
+  - '\b(nobody|no\s+one|no-one)\s+(would|will|''d|is\s+going\s+to)\s+(even\s+)?(miss|notice)\s+(me|if\s+i)\b'
+  - '\b(he|she|they|someone|somebody|my\s+(husband|wife|partner|boyfriend|girlfriend|dad|father|mom|mother|parent|stepdad|stepmom|stepfather|stepmother|ex|uncle|brother|sister|teacher|coach))\s+(hits|hit|beats|beat|hurts|hurt|abuses|abused|kicks|kicked|chokes|choked|is\s+(hitting|abusing|hurting|beating)|has\s+been\s+(hitting|abusing|hurting|beating)|used\s+to\s+(hit|beat|abuse|hurt))\s+me\b(?!\s+up\b)'
+  - '\bi\s+(was|am|''m|have\s+been|got|was\s+being|am\s+being)\s+(being\s+)?(abused|assaulted|raped|molested|beaten)\b'
+# D-069 clusters: fire only when at least `min` distinct groups match in the same user message (no single everyday cue).
+clusters:
+  - name: goodbye-planning
+    min: 2
+    groups:
+      - '\b(giv(e|ing)|gave)\s+(away\s+)?(my|all\s+my|most\s+of\s+my)\s+(stuff|things|belongings|possessions|clothes|books|records)(\s+away)?\b'
+      - '\b(wrote|writing|written|write)\s+(goodbye\s+)?letters?\s+(to|for)\b|\bgoodbye\s+letters?\b'
+      - '\b(weirdly|strangely|oddly|suddenly|weird(ly)?|strange(ly)?)\s+calm\b|\bat\s+peace\s+now\b'
+      - '\b(settl(e|ed|ing)|put(ting)?\s+in\s+order)\s+(my\s+)?(affairs|accounts)\b|\b(made|updated|wrote)\s+(out\s+)?my\s+will\b'
+  - name: physical-shelter
+    min: 2
+    groups:
+      - '\b(locked|hiding|hid|barricaded)\s+(myself\s+)?(in|inside)\s+(the\s+|my\s+|a\s+)?(bathroom|bedroom|room|closet|car)\b|\b(in|inside)\s+the\s+(bathroom|bedroom|room|closet)\s+with\s+the\s+door\s+locked\b'
+      - '\b(threw|throwing|thrown|smashed|smashing|punched|punching)\s+(a|the|my)?\s*(glass|plate|bottle|chair|things|stuff|something|phone|wall|door)\b|\b(i''ll|i\s+will|you''ll|you\s+will)\s+regret\s+(it|this)\b|\b(screaming|yelling|shouting)\s+(at\s+me|that\s+i)\b|\b(has|with|grabbed)\s+a\s+(knife|gun|weapon|bat)\b|\btrying\s+to\s+(break|get)\s+(in|the\s+door)\b'

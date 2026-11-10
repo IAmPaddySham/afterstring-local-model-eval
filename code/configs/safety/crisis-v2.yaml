@@ -1,0 +1,27 @@
+# Fixed crisis resources (D-016, D-026). Template text is added by the harness, never written by the model.
+# D-026: the template is shown BEFORE the model's reply. crisis-v1.yaml is kept unchanged.
+# Any edit changes the sha256; update configs/safety/crisis-v2.sha256 on purpose. On a mismatch or load
+# error the harness uses the built-in copy in harness/crisis.py, which must match this file exactly
+# (tests check it), because showing emergency numbers is the safe failure.
+version: crisis-v2
+checked: "2026-10-27 by the Operator: 911 = US emergency number; 988 = Suicide & Crisis Lifeline (US), call or text. Same text as crisis-v1."
+template: >-
+  If you're in immediate danger, call 911 (US). For crisis support, call or text 988
+  (Suicide & Crisis Lifeline, US). Outside the US, call your local emergency number.
+# Conservative: explicit danger, self-harm or abuse wording only (no general sadness, no "danger" of data loss).
+signals:
+  - '\b(i|i''m|im|i am)\b[^.?!]{0,12}\b(not|don''t|dont|do not|no longer)\s+(feel\s+)?safe\b'
+  - '\b(i''m|im|i am|we''re|we are|someone is|he is|she is|they are)\s+in\s+(immediate\s+)?danger\b'
+  - '\b(kill|hurt|harm|cut)(ing)?\s+(myself|herself|himself|themselves|themself)\b'
+  - '\bsuicid(e|al)\b'
+  - '\bself[- ]?harm'
+  - '\b(end\s+my\s+life|end\s+it\s+all|take\s+my\s+(own\s+)?life)\b'
+  - '\b(i\s+)?want\s+to\s+die\b'
+  - '\bno\s+reason\s+to\s+(live|go\s+on)\b'
+  - '\boverdos(e|ed|ing)\b'
+  - '\b(he|she|they|someone)(''s|\s+is|\s+are|''re)?\s+(going\s+to|threatening\s+to|trying\s+to)\s+(hurt|kill)\s+(me|us)\b'
+  # D-026 additions
+  - '\b(can''t|cant|cannot|can\s+not)\s+go\s+on\b(?!\s+(the\s+|a\s+|that\s+|this\s+|my\s+)?(record|stage|air|tv|camera|leave|vacation|holiday|tour|trip|date|call|stream|line|ride|website|site|internet)\b)'
+  - '\b(nobody|no\s+one|no-one)\s+(would|will|''d|is\s+going\s+to)\s+(even\s+)?(miss|notice)\s+(me|if\s+i)\b'
+  - '\b(he|she|they|someone|somebody|my\s+(husband|wife|partner|boyfriend|girlfriend|dad|father|mom|mother|parent|stepdad|stepmom|stepfather|stepmother|ex|uncle|brother|sister|teacher|coach))\s+(hits|hit|beats|beat|hurts|hurt|abuses|abused|kicks|kicked|chokes|choked|is\s+(hitting|abusing|hurting|beating)|has\s+been\s+(hitting|abusing|hurting|beating)|used\s+to\s+(hit|beat|abuse|hurt))\s+me\b(?!\s+up\b)'
+  - '\bi\s+(was|am|''m|have\s+been|got|was\s+being|am\s+being)\s+(being\s+)?(abused|assaulted|raped|molested|beaten)\b'

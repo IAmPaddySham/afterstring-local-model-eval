@@ -1,0 +1,7 @@
+Afterstring local-model-eval
+Copyright 2026 Paddy Sham
+
+Code in this repository is licensed under the Apache License, Version 2.0 (see LICENSE).
+Documentation, results and the published B1-B5 test conversations are licensed under
+Creative Commons Attribution 4.0 International (CC BY 4.0) (see LICENSE-DOCS).
+No model weights are included or redistributed.

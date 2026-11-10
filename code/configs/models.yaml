@@ -1,0 +1,55 @@
+# configs/models.yaml — pinned model builds for local-model-eval
+# Written 2026-10-26 by the Operator after D-007 (update) / ADR-0007 Accepted.
+# Every approval (1/0) is bound to ONE exact build below (8.1.19, REQ-035).
+# Changing repo, revision, quant, engine or adapter = new artifact = full re-eval + fresh 1/0.
+# No secrets in this file.
+
+schema: 1
+default: gemma4-e4b-it-4bit-mlx
+
+models:
+  gemma4-e4b-it-4bit-mlx:
+    role: starter
+    family: Gemma 4 (Google)
+    base_model: google/gemma-4-E4B-it
+    engine: mlx-lm 0.32.2 (mlx 0.32.4)
+    source: huggingface
+    repo: mlx-community/gemma-4-e4b-it-4bit
+    revision: 475b9088d29754a3379866cf5aeb6b41acd313c2   # repo lastModified 2026-07-06T01:11:51Z
+    quantization: 4-bit (MLX affine)
+    weights:
+      file: model.safetensors
+      bytes: 5146800534
+      sha256: 932b8271fc3fe65adcc78b96c10c6268bbfb13e8f67d1358727c0d6ee97e1eff
+    repo_total_bytes: 5179241512
+    local_path: ~/.cache/huggingface/hub/models--mlx-community--gemma-4-e4b-it-4bit/snapshots/475b9088d29754a3379866cf5aeb6b41acd313c2
+    sampling:   # D-027: recommended sampling, from the snapshot's generation_config.json (do_sample true)
+      temperature: 1.0
+      top_p: 0.95
+      top_k: 64
+    license_note: "Gemma 4 is Apache 2.0 per ADR-0007; the mlx-community repo metadata says license: gemma. Confirm before redistribution."
+
+  gemma4-e2b-it-4bit-mlx:
+    role: 8gb-tier
+    family: Gemma 4 (Google)
+    base_model: google/gemma-4-E2B-it
+    engine: mlx-lm 0.32.2 (mlx 0.32.4)
+    source: huggingface
+    repo: mlx-community/gemma-4-e2b-it-4bit
+    revision: 238767527555cb75a05732a84dff5d6ba0dd6809   # repo lastModified 2026-07-06T00:14:55Z
+    quantization: 4-bit (MLX affine)
+    weights:
+      file: model.safetensors
+      bytes: 3550670554
+      sha256: 038e39a37a7667373d2c3991375446b10c96ae1d717a68674870343db376b76e
+    repo_total_bytes: 3583088661
+    local_path: ~/.cache/huggingface/hub/models--mlx-community--gemma-4-e2b-it-4bit/snapshots/238767527555cb75a05732a84dff5d6ba0dd6809
+    sampling:   # D-027: recommended sampling, assumed same as E4B (not checked)
+      temperature: 1.0
+      top_p: 0.95
+      top_k: 64
+    license_note: "Same as E4B."
+
+# Challengers (ADR-0007) — not downloaded, not pinned yet:
+#   NVIDIA Nemotron 3.5 Bolt E4B; IBM Granite 4.2 3B. Traceability reference: AI2 OLMo 3 7B Instruct.
+# Ollama gemma4:e4b (~9.5 GB) NOT pulled on 2026-10-26 (would roughly double the ~10 GB budget). Existing Ollama models untouched.

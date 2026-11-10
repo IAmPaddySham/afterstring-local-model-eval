@@ -1,0 +1,88 @@
+{
+  "version": "retrieval-v1",
+  "method": "BM25 (k1=1.2, b=0.75), stdlib only",
+  "chunk_lines": 12,
+  "top_k": 3,
+  "min_score": 1.0,
+  "allowlist_sha256": "9586f3176e3dbf9bb4819113f842c2c770f8089e802ff142ca5720986178f471",
+  "files": [
+    {
+      "path": "papers/module-4-layer-map.md",
+      "sha256": "30ed30df66154ad43024024d257e09fb0c99236c70a231492d11cc6b778ed235",
+      "bytes": 3282,
+      "chunks": 6,
+      "dropped": []
+    },
+    {
+      "path": "papers/module-4.1-signal-trust.md",
+      "sha256": "5421c21641aabf0ab38a9d4d66b5661ad652b24b248a3402108030c6caa4b4ea",
+      "bytes": 3786,
+      "chunks": 11,
+      "dropped": []
+    },
+    {
+      "path": "papers/module-4.2-optics-layer.md",
+      "sha256": "f50b50fafe79b16ff6faacbfe8847bffb0af11acd1201d349613265e56f8ce2a",
+      "bytes": 5473,
+      "chunks": 12,
+      "dropped": []
+    },
+    {
+      "path": "papers/module-4.3-sonic-layer.md",
+      "sha256": "28fbd3cdc3af9361071450c7f9dbfb1a61edbd9c15b947bdc852c10282a2daa0",
+      "bytes": 1988,
+      "chunks": 6,
+      "dropped": []
+    },
+    {
+      "path": "papers/module-4.4-afterstring-core-return.md",
+      "sha256": "12b0033c6e3646446740179a2ec6a5bac6b5b07085c62babe5065ffc21858924",
+      "bytes": 10235,
+      "chunks": 25,
+      "dropped": []
+    },
+    {
+      "path": "papers/module-4.4.1-afterstring-return-boundary.md",
+      "sha256": "9aca5516804481d983b7bd35ba56f5bb9ff936701ed5cbbe095defcbc884c07b",
+      "bytes": 5171,
+      "chunks": 12,
+      "dropped": []
+    },
+    {
+      "path": "papers/release-clause-v4-guardrails.md",
+      "sha256": "2ddab4f7d06b20dc4aff46467ab083230fb563d2e0e5a82c1bf1d707ef7567fd",
+      "bytes": 3112,
+      "chunks": 10,
+      "dropped": []
+    },
+    {
+      "path": "papers/module-8.1.19-after-openweight.md",
+      "sha256": "14ce9373840e376a955a39ca5d6088b231f50c7579cebe2018651ab87008561e",
+      "bytes": 6485,
+      "chunks": 18,
+      "dropped": []
+    },
+    {
+      "path": "projects/fail-close-governor/drafts/governor-PLATINUM-public-2026-10-22-r2.md",
+      "sha256": "51bfd77364f1e0e4db9b19ffba3a162180defdf1dd6a9ce53db3b7525ada1119",
+      "bytes": 24978,
+      "chunks": 19,
+      "dropped": []
+    },
+    {
+      "path": "imported/x-profile-documents/text/2026-10-26_2114613732332777658.txt",
+      "sha256": "5f2b63d7a5abf164d6b5767089762f7834514cdab9b64ae4ff3d18c2502ef432",
+      "bytes": 4781,
+      "chunks": 3,
+      "dropped": []
+    },
+    {
+      "path": "imported/x-profile-documents/text/2026-10-26_2114871021539090778.txt",
+      "sha256": "2fad1927ef38ebc85fdf6af134c8934a01588f1d29db54bd3e4fee2751b94cd0",
+      "bytes": 1036,
+      "chunks": 3,
+      "dropped": []
+    }
+  ],
+  "chunks_total": 125
+}

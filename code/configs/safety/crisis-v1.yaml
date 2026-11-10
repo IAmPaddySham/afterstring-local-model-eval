@@ -1,0 +1,21 @@
+# Fixed crisis resources (D-016). Template text is appended by the harness, never written by the model.
+# Any edit changes the sha256; update configs/safety/crisis-v1.sha256 on purpose. On a mismatch or load
+# error the harness still appends the built-in copy of the same text (harness/crisis.py), because
+# showing emergency numbers is the safe failure.
+version: crisis-v1
+checked: "2026-10-26 by the Operator: 911 = US emergency number; 988 = Suicide & Crisis Lifeline (US), call or text."
+template: >-
+  If you're in immediate danger, call 911 (US). For crisis support, call or text 988
+  (Suicide & Crisis Lifeline, US). Outside the US, call your local emergency number.
+# Conservative: explicit danger or self-harm wording only (no general sadness, no "danger" of data loss).
+signals:
+  - "\\b(i|i'm|im|i am)\\b[^.?!]{0,12}\\b(not|don't|dont|do not|no longer)\\s+(feel\\s+)?safe\\b"
+  - "\\b(i'm|im|i am|we're|we are|someone is|he is|she is|they are)\\s+in\\s+(immediate\\s+)?danger\\b"
+  - "\\b(kill|hurt|harm|cut)(ing)?\\s+(myself|herself|himself|themselves|themself)\\b"
+  - "\\bsuicid(e|al)\\b"
+  - "\\bself[- ]?harm"
+  - "\\b(end\\s+my\\s+life|end\\s+it\\s+all|take\\s+my\\s+(own\\s+)?life)\\b"
+  - "\\b(i\\s+)?want\\s+to\\s+die\\b"
+  - "\\bno\\s+reason\\s+to\\s+(live|go\\s+on)\\b"
+  - "\\boverdos(e|ed|ing)\\b"
+  - "\\b(he|she|they|someone)('s|\\s+is|\\s+are|'re)?\\s+(going\\s+to|threatening\\s+to|trying\\s+to)\\s+(hurt|kill)\\s+(me|us)\\b"

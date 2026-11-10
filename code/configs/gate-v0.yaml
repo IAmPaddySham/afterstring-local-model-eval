@@ -1,0 +1,14 @@
+# configs/gate-v0.yaml — adapter numbers for harness/gate_adapter.py (D-014)
+# Paddy-approved v0 values, 2026-10-26 (msg pt723u): "i think 120 second window is fine and
+# limit of 10 for now. as the project scales and passes validation that number may increase,
+# i would like to keep the option open."
+# These are v0 values, not permanent limits. They may increase as the project scales and
+# passes validation, by Paddy's word only (new D-entry, then edit here). No secrets here.
+
+version: 0
+confirmation_ttl_s: 120        # a yes must be younger than this (seconds) to count as fresh
+approval_ceiling_60min: 10     # at this many approvals in the last 60 min, the next consequential action is HOLD
+                               # (same number as OR-08 n_fatigue in configs/filter/rules-v0.yaml; a unit test checks they match)
+approval_window_s: 3600       # the "60 min" of the ceiling, in seconds (REQ-042, D-033; same value as D-014, now explicit)
+gate_timeout_s: 5.0            # gate_cli.rb subprocess timeout; any error or timeout = HOLD
+approved_by: "Paddy, pt723u, 2026-10-26 (v0; may increase later)"

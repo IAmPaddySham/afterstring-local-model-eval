@@ -1,0 +1,14 @@
+# Retrieval allowlist v0 (D-019). Paths relative to ~/afterstring. Public, CC BY 4.0 corpus files only (D-001: existing corpus, not expanded).
+# Newest public versions govern (D-003): Core Return 4.4 and Governor 4.5 (Platinum public r2 spec; "if this page and the full text disagree, the full text wins").
+# Never: private notes, diaries, family material, AOVP data, Tesla material, secrets, 04/Seat, the governor answer key (REQ-014, R3, R6).
+papers/module-4-layer-map.md
+papers/module-4.1-signal-trust.md
+papers/module-4.2-optics-layer.md
+papers/module-4.3-sonic-layer.md
+papers/module-4.4-afterstring-core-return.md
+papers/module-4.4.1-afterstring-return-boundary.md
+papers/release-clause-v4-guardrails.md
+papers/module-8.1.19-after-openweight.md
+projects/fail-close-governor/drafts/governor-PLATINUM-public-2026-10-22-r2.md
+imported/x-profile-documents/text/2026-10-26_2114613732332777658.txt
+imported/x-profile-documents/text/2026-10-26_2114871021539090778.txt
